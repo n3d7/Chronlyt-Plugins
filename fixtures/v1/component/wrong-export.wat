@@ -1,0 +1,15 @@
+(component
+  (core module $m
+    (memory (export "memory") 1)
+    (func (export "realloc") (param i32 i32 i32 i32) (result i32) unreachable)
+    (func (export "render") (param i32 i32 i32 i32) (result i32) unreachable)
+    (func (export "event") (param i32 i32 i32 i32 i32 i32) (result i32) unreachable))
+  (core instance $i (instantiate $m))
+  (func $render (export "wrong-page")
+    (param "page-id" string) (param "state-json" string)
+    (result (result string (error string)))
+    (canon lift (core func $i "render") (memory $i "memory") (realloc (func $i "realloc"))))
+  (func (export "handle-event")
+    (param "page-id" string) (param "action-id" string) (param "input-json" string)
+    (result (result string (error string)))
+    (canon lift (core func $i "event") (memory $i "memory") (realloc (func $i "realloc")))))

@@ -1,0 +1,15 @@
+# Review routing only. Repository protection/rules must enforce these reviews.
+/.github/ @n3d7
+/Cargo.toml @n3d7
+/Cargo.lock @n3d7
+/rust-toolchain.toml @n3d7
+/crates/ @n3d7
+/tools/ @n3d7
+/contracts/ @n3d7
+/fixtures/ @n3d7
+/examples/ @n3d7
+/registry/ @n3d7
+/catalog.json @n3d7
+/SECURITY.md @n3d7
+/CONTRIBUTING.md @n3d7
+/docs/ @n3d7

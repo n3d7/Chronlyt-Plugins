@@ -1,0 +1,10 @@
+{
+  "capabilities": [
+    "storage.read",
+    "storage.write",
+    "timeline.read",
+    "timeline.write",
+    "notifications.show"
+  ],
+  "schema_version": 1
+}

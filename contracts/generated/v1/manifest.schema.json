@@ -1,0 +1,181 @@
+{
+  "$defs": {
+    "Capability": {
+      "enum": [
+        "storage.read",
+        "storage.write",
+        "timeline.read",
+        "timeline.write",
+        "notifications.show"
+      ],
+      "type": "string"
+    },
+    "PluginAssetManifestV1": {
+      "additionalProperties": false,
+      "properties": {
+        "media_type": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 240,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256",
+        "media_type"
+      ],
+      "type": "object"
+    },
+    "PluginCompatibilityV1": {
+      "additionalProperties": false,
+      "properties": {
+        "chronlyt": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "chronlyt"
+      ],
+      "type": "object"
+    },
+    "PluginComponentV1": {
+      "additionalProperties": false,
+      "properties": {
+        "path": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 240,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "sha256": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "PluginId": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 57,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "PluginPageManifestV1": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 300
+        },
+        "id": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 64,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "title": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 80,
+          "x-chronlyt-min-utf8-bytes": 1
+        }
+      },
+      "required": [
+        "id",
+        "title",
+        "description"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "api_version": {
+      "const": 1,
+      "format": "uint16",
+      "maximum": 65535,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "assets": {
+      "items": {
+        "$ref": "#/$defs/PluginAssetManifestV1"
+      },
+      "maxItems": 64,
+      "type": "array"
+    },
+    "author": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 120,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "compatibility": {
+      "$ref": "#/$defs/PluginCompatibilityV1"
+    },
+    "component": {
+      "$ref": "#/$defs/PluginComponentV1"
+    },
+    "description": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 2000
+    },
+    "id": {
+      "$ref": "#/$defs/PluginId"
+    },
+    "name": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 80,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "pages": {
+      "items": {
+        "$ref": "#/$defs/PluginPageManifestV1"
+      },
+      "maxItems": 32,
+      "minItems": 1,
+      "type": "array"
+    },
+    "permissions": {
+      "items": {
+        "$ref": "#/$defs/Capability"
+      },
+      "maxItems": 32,
+      "type": "array",
+      "uniqueItems": true
+    },
+    "schema_version": {
+      "const": 1,
+      "format": "uint16",
+      "maximum": 65535,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "api_version",
+    "id",
+    "name",
+    "version",
+    "description",
+    "author",
+    "compatibility",
+    "component",
+    "permissions",
+    "pages",
+    "assets"
+  ],
+  "title": "PluginManifestV1",
+  "type": "object",
+  "x-chronlyt-max-utf8-bytes": 131072,
+  "x-chronlyt-semantic-validation-required": true
+}

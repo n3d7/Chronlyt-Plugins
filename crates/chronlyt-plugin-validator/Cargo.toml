@@ -1,0 +1,21 @@
+[package]
+name = "chronlyt-plugin-validator"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+description = "Pure package and static component validation for Chronlyt plugins"
+
+[dependencies]
+chronlyt-plugin-contracts = { path = "../chronlyt-plugin-contracts", version = "=0.1.0" }
+sha2.workspace = true
+thiserror.workspace = true
+zip.workspace = true
+wasmparser.workspace = true
+wit-parser.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+wat.workspace = true

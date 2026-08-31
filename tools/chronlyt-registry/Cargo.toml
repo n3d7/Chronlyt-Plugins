@@ -1,0 +1,29 @@
+[package]
+name = "chronlyt-registry"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+description = "Internal deterministic Chronlyt registry validation and generation"
+
+[dependencies]
+chronlyt-plugin-contracts = { path = "../../crates/chronlyt-plugin-contracts", version = "=0.1.0", features = ["schema"] }
+chronlyt-plugin-validator = { path = "../../crates/chronlyt-plugin-validator", version = "=0.1.0" }
+chrono.workspace = true
+semver.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+reqwest.workspace = true
+url.workspace = true
+base64.workspace = true
+schemars.workspace = true
+tempfile.workspace = true
+sha2.workspace = true
+
+[dev-dependencies]
+yaml-rust2.workspace = true
+zip.workspace = true
+wat.workspace = true

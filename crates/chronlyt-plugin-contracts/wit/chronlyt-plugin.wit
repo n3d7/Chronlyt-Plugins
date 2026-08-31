@@ -1,0 +1,27 @@
+package chronlyt:plugin@1.0.0;
+
+/// The only capabilities visible to a Chronlyt v1 component. The host binds
+/// every call to the immutable plugin identity in its Store; callers never
+/// supply an identity, namespace, path, URL, or other authority-bearing value.
+interface host {
+  storage-get: func(key: string) -> result<option<string>, string>;
+  storage-put: func(key: string, value-json: string) -> result<_, string>;
+  storage-delete: func(key: string) -> result<_, string>;
+  storage-list: func() -> result<string, string>;
+
+  timeline-list: func(query-json: string) -> result<string, string>;
+  timeline-create: func(entry-json: string) -> result<string, string>;
+  timeline-update: func(entry-id: string, patch-json: string) -> result<string, string>;
+  timeline-delete: func(entry-id: string) -> result<_, string>;
+
+  notification-show: func(title: string, body: string) -> result<_, string>;
+}
+
+world chronlyt-plugin {
+  import host;
+
+  /// Both exports return versioned declarative UI JSON. The trusted host
+  /// validates and normalizes it before anything crosses into the renderer.
+  export render-page: func(page-id: string, state-json: string) -> result<string, string>;
+  export handle-event: func(page-id: string, action-id: string, input-json: string) -> result<string, string>;
+}

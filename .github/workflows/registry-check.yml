@@ -1,0 +1,89 @@
+name: Trusted registry data
+
+on:
+  pull_request_target:
+    branches: [main]
+    types: [opened, reopened, synchronize, edited, ready_for_review]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  registry-data-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      pull-requests: read
+    defaults:
+      run:
+        working-directory: trusted
+    env:
+      TRUSTED_SHA: ${{ github.workflow_sha }}
+      PR_NUMBER: ${{ github.event.pull_request.number }}
+      PR_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+      TARGET_BRANCH: ${{ github.event.pull_request.base.ref }}
+    steps:
+      - name: Validate trusted event identity
+        working-directory: ${{ github.workspace }}
+        shell: bash
+        env:
+          CARGO_HOME: ${{ runner.temp }}/registry-cargo
+          CARGO_TARGET_DIR: ${{ runner.temp }}/registry-target
+          RUSTUP_HOME: ${{ runner.temp }}/registry-rustup
+        run: |
+          set -euo pipefail
+          [[ "$GITHUB_REPOSITORY" == 'n3d7/Chronlyt-Plugins' ]]
+          [[ "$GITHUB_EVENT_NAME" == 'pull_request_target' ]]
+          [[ "$GITHUB_SERVER_URL" == 'https://github.com' ]]
+          [[ "$GITHUB_WORKFLOW_REF" == 'n3d7/Chronlyt-Plugins/.github/workflows/registry-check.yml@refs/heads/main' ]]
+          [[ "$TARGET_BRANCH" == 'main' ]]
+          [[ "$TRUSTED_SHA" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$PR_HEAD_SHA" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$PR_NUMBER" =~ ^[1-9][0-9]{0,9}$ ]]
+          [[ "$GITHUB_RUN_ID" =~ ^[1-9][0-9]{0,19}$ ]]
+          [[ "$GITHUB_RUN_ATTEMPT" =~ ^[1-9][0-9]{0,9}$ ]]
+          [[ ! -e trusted && ! -e "$CARGO_HOME" && ! -e "$CARGO_TARGET_DIR" && ! -e "$RUSTUP_HOME" ]]
+      - name: Checkout trusted workflow revision only
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: n3d7/Chronlyt-Plugins
+          ref: ${{ github.workflow_sha }}
+          path: trusted
+          persist-credentials: false
+          submodules: false
+          lfs: false
+          clean: false
+          fetch-depth: 1
+          set-safe-directory: false
+      - name: Build trusted validator without API credentials
+        shell: bash
+        env:
+          CARGO_HOME: ${{ runner.temp }}/registry-cargo
+          CARGO_TARGET_DIR: ${{ runner.temp }}/registry-target
+          RUSTUP_HOME: ${{ runner.temp }}/registry-rustup
+        run: |
+          set -euo pipefail
+          [[ "$(git rev-parse HEAD)" == "$TRUSTED_SHA" ]]
+          if git config --local --get-regexp '(^http\..*\.extraheader$|^include.*\.path$)' >/dev/null; then
+            exit 1
+          fi
+          run_build() {
+            env -i PATH="$PATH" CARGO_HOME="$CARGO_HOME" RUSTUP_HOME="$RUSTUP_HOME" CARGO_TARGET_DIR="$CARGO_TARGET_DIR" "$@"
+          }
+          run_build rustup show active-toolchain
+          run_build cargo build --locked -p chronlyt-registry
+      - name: Validate bounded PR data and current provenance
+        shell: bash
+        env:
+          CARGO_HOME: ${{ runner.temp }}/registry-cargo
+          CARGO_TARGET_DIR: ${{ runner.temp }}/registry-target
+          RUSTUP_HOME: ${{ runner.temp }}/registry-rustup
+          CHRONLYT_REGISTRY_GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          printf 'registry-run workflow=%s event=%s run_id=%s attempt=%s\n' "$GITHUB_WORKFLOW_REF" "$GITHUB_EVENT_NAME" "$GITHUB_RUN_ID" "$GITHUB_RUN_ATTEMPT"
+          "$CARGO_TARGET_DIR/debug/chronlyt-registry" check \
+            --source-pr "$PR_NUMBER" --source-rev "$PR_HEAD_SHA" \
+            --base-git "$GITHUB_WORKSPACE/trusted" --base-rev "$TRUSTED_SHA"

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "root": {
+    "kind": "page",
+    "children": [
+      {
+        "kind": "text",
+        "text": "<b>literal text</b>"
+      },
+      {
+        "kind": "button",
+        "label": "Ping",
+        "action_id": "ping"
+      }
+    ]
+  }
+}

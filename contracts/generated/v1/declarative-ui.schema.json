@@ -1,0 +1,560 @@
+{
+  "$defs": {
+    "PluginButtonVariantV1": {
+      "enum": [
+        "primary",
+        "secondary",
+        "danger",
+        "ghost"
+      ],
+      "type": "string"
+    },
+    "PluginListItemV1": {
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-chronlyt-max-utf8-bytes": 4096
+        },
+        "title": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 4096
+        }
+      },
+      "required": [
+        "title"
+      ],
+      "type": "object"
+    },
+    "PluginNodeV1": {
+      "oneOf": [
+        {
+          "additionalProperties": false,
+          "properties": {
+            "children": {
+              "items": {
+                "$ref": "#/$defs/PluginNodeV1"
+              },
+              "maxItems": 64,
+              "type": "array"
+            },
+            "kind": {
+              "const": "page",
+              "type": "string"
+            },
+            "title": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "children"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "children": {
+              "items": {
+                "$ref": "#/$defs/PluginNodeV1"
+              },
+              "maxItems": 64,
+              "type": "array"
+            },
+            "kind": {
+              "const": "stack",
+              "type": "string"
+            },
+            "spacing": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PluginSpacingV1"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "kind",
+            "children"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "children": {
+              "items": {
+                "$ref": "#/$defs/PluginNodeV1"
+              },
+              "maxItems": 64,
+              "type": "array"
+            },
+            "kind": {
+              "const": "row",
+              "type": "string"
+            },
+            "spacing": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PluginSpacingV1"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "kind",
+            "children"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "children": {
+              "items": {
+                "$ref": "#/$defs/PluginNodeV1"
+              },
+              "maxItems": 64,
+              "type": "array"
+            },
+            "kind": {
+              "const": "card",
+              "type": "string"
+            },
+            "title": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "children"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "divider",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "spacer",
+              "type": "string"
+            },
+            "size": {
+              "$ref": "#/$defs/PluginSpacingV1"
+            }
+          },
+          "required": [
+            "kind",
+            "size"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "heading",
+              "type": "string"
+            },
+            "level": {
+              "format": "uint8",
+              "maximum": 3,
+              "minimum": 1,
+              "type": "integer"
+            },
+            "text": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "level",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "text",
+              "type": "string"
+            },
+            "text": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            },
+            "tone": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PluginToneV1"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "kind": {
+              "const": "badge",
+              "type": "string"
+            },
+            "text": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            },
+            "tone": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PluginToneV1"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "kind",
+            "text"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "items": {
+              "items": {
+                "$ref": "#/$defs/PluginListItemV1"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            "kind": {
+              "const": "list",
+              "type": "string"
+            }
+          },
+          "required": [
+            "kind",
+            "items"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action_id": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 128,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "disabled": {
+              "default": false,
+              "type": "boolean"
+            },
+            "kind": {
+              "const": "button",
+              "type": "string"
+            },
+            "label": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            },
+            "variant": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/PluginButtonVariantV1"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null
+            }
+          },
+          "required": [
+            "kind",
+            "label",
+            "action_id"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action_id": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 128,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "field_id": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 64,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "kind": {
+              "const": "text_input",
+              "type": "string"
+            },
+            "label": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            },
+            "placeholder": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 4096
+            },
+            "value": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "field_id",
+            "label",
+            "value"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action_id": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 128,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "field_id": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 64,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "kind": {
+              "const": "select",
+              "type": "string"
+            },
+            "label": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            },
+            "options": {
+              "items": {
+                "$ref": "#/$defs/PluginSelectOptionV1"
+              },
+              "maxItems": 100,
+              "type": "array"
+            },
+            "value": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "field_id",
+            "label",
+            "value",
+            "options"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action_id": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 128,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "checked": {
+              "type": "boolean"
+            },
+            "field_id": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 64,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "kind": {
+              "const": "checkbox",
+              "type": "string"
+            },
+            "label": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "field_id",
+            "label",
+            "checked"
+          ],
+          "type": "object"
+        },
+        {
+          "additionalProperties": false,
+          "properties": {
+            "action_id": {
+              "default": null,
+              "type": [
+                "string",
+                "null"
+              ],
+              "x-chronlyt-max-utf8-bytes": 128,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "checked": {
+              "type": "boolean"
+            },
+            "field_id": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 64,
+              "x-chronlyt-min-utf8-bytes": 1
+            },
+            "kind": {
+              "const": "toggle",
+              "type": "string"
+            },
+            "label": {
+              "type": "string",
+              "x-chronlyt-max-utf8-bytes": 4096
+            }
+          },
+          "required": [
+            "kind",
+            "field_id",
+            "label",
+            "checked"
+          ],
+          "type": "object"
+        }
+      ]
+    },
+    "PluginSelectOptionV1": {
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 4096
+        },
+        "value": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 4096
+        }
+      },
+      "required": [
+        "value",
+        "label"
+      ],
+      "type": "object"
+    },
+    "PluginSpacingV1": {
+      "enum": [
+        "small",
+        "medium",
+        "large"
+      ],
+      "type": "string"
+    },
+    "PluginToneV1": {
+      "enum": [
+        "default",
+        "muted",
+        "accent",
+        "success",
+        "warning",
+        "danger"
+      ],
+      "type": "string"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "root": {
+      "$ref": "#/$defs/PluginNodeV1"
+    },
+    "schema_version": {
+      "const": 1,
+      "format": "uint16",
+      "maximum": 65535,
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema_version",
+    "root"
+  ],
+  "title": "PluginViewV1",
+  "type": "object",
+  "x-chronlyt-max-depth": 16,
+  "x-chronlyt-max-inputs": 64,
+  "x-chronlyt-max-nodes": 512,
+  "x-chronlyt-max-utf8-bytes": 262144,
+  "x-chronlyt-semantic-validation-required": true
+}
