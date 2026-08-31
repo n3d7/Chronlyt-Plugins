@@ -1,0 +1,9 @@
+{
+  "schema_version": 1,
+  "root": {
+    "kind": "button",
+    "label": "Open",
+    "action_id": "open",
+    "url": "https://example.com"
+  }
+}

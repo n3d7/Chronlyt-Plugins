@@ -1,0 +1,29 @@
+# Workspace build outputs, including target/canary packages and generated WASM.
+/target/
+
+# Local scratch/cache/log directories (not source or fixture extensions).
+/.tmp/
+/.cache/
+/.logs/
+
+# Root-local coverage and profiling outputs.
+/coverage/
+/lcov.info
+/*.profraw
+/*.profdata
+/perf.data
+/perf.data.old
+
+# Per-user IDE state only; shared editor settings remain visible to Git.
+/.idea/workspace.xml
+/.idea/shelf/
+.*.swp
+.*.swo
+
+# OS metadata.
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Keep Cargo.lock, catalogs, generated contracts, WIT and all fixtures visible.
+# Do not ignore *.wasm or *.chronlyt-plugin globally: they can be test fixtures.

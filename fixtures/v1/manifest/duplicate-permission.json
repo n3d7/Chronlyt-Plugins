@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "api_version": 1,
+  "id": "example.notes",
+  "name": "Notes",
+  "version": "1.0.0",
+  "description": "A bounded notes page.",
+  "author": "Example",
+  "compatibility": {
+    "chronlyt": ">=0.2.1, <0.3.0"
+  },
+  "component": {
+    "path": "plugin.wasm",
+    "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+  },
+  "permissions": [
+    "storage.read",
+    "storage.read"
+  ],
+  "pages": [
+    {
+      "id": "notes",
+      "title": "Notes",
+      "description": "Private local notes"
+    }
+  ],
+  "assets": []
+}

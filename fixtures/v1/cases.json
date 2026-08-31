@@ -1,0 +1,225 @@
+[
+  {
+    "name": "valid",
+    "kind": "manifest",
+    "file": "manifest/valid.json",
+    "accepted": true,
+    "normalized": "manifest/valid.normalized.json"
+  },
+  {
+    "name": "unknown-field",
+    "kind": "manifest",
+    "file": "manifest/unknown-field.json",
+    "accepted": false
+  },
+  {
+    "name": "unknown-version",
+    "kind": "manifest",
+    "file": "manifest/unknown-version.json",
+    "accepted": false
+  },
+  {
+    "name": "unknown-capability",
+    "kind": "manifest",
+    "file": "manifest/unknown-capability.json",
+    "accepted": false
+  },
+  {
+    "name": "duplicate-permission",
+    "kind": "manifest",
+    "file": "manifest/duplicate-permission.json",
+    "accepted": false
+  },
+  {
+    "name": "duplicate-page",
+    "kind": "manifest",
+    "file": "manifest/duplicate-page.json",
+    "accepted": false
+  },
+  {
+    "name": "reserved-path",
+    "kind": "manifest",
+    "file": "manifest/reserved-path.json",
+    "accepted": false
+  },
+  {
+    "name": "invalid-semver",
+    "kind": "manifest",
+    "file": "manifest/invalid-semver.json",
+    "accepted": false
+  },
+  {
+    "name": "missing-assets",
+    "kind": "manifest",
+    "file": "manifest/missing-assets.json",
+    "accepted": false
+  },
+  {
+    "name": "empty",
+    "kind": "catalog",
+    "file": "catalog/empty.json",
+    "accepted": true,
+    "normalized": "catalog/empty.normalized.json"
+  },
+  {
+    "name": "invalid-timestamp",
+    "kind": "catalog",
+    "file": "catalog/invalid-timestamp.json",
+    "accepted": false
+  },
+  {
+    "name": "valid",
+    "kind": "catalog",
+    "file": "catalog/valid.json",
+    "accepted": true,
+    "normalized": "catalog/valid.normalized.json"
+  },
+  {
+    "name": "duplicate-id",
+    "kind": "catalog",
+    "file": "catalog/duplicate-id.json",
+    "accepted": false
+  },
+  {
+    "name": "unknown-field",
+    "kind": "catalog",
+    "file": "catalog/unknown-field.json",
+    "accepted": false
+  },
+  {
+    "name": "unsafe-artifact",
+    "kind": "catalog",
+    "file": "catalog/unsafe-artifact.json",
+    "accepted": false
+  },
+  {
+    "name": "missing-statistics",
+    "kind": "catalog",
+    "file": "catalog/missing-statistics.json",
+    "accepted": true,
+    "normalized": "catalog/missing-statistics.normalized.json"
+  },
+  {
+    "name": "defaults",
+    "kind": "ui",
+    "file": "ui/defaults.json",
+    "accepted": true,
+    "normalized": "ui/defaults.normalized.json"
+  },
+  {
+    "name": "unknown-html",
+    "kind": "ui",
+    "file": "ui/unknown-html.json",
+    "accepted": false
+  },
+  {
+    "name": "injected-url",
+    "kind": "ui",
+    "file": "ui/injected-url.json",
+    "accepted": false
+  },
+  {
+    "name": "invalid-heading",
+    "kind": "ui",
+    "file": "ui/invalid-heading.json",
+    "accepted": false
+  },
+  {
+    "name": "unknown-tone",
+    "kind": "ui",
+    "file": "ui/unknown-tone.json",
+    "accepted": false
+  },
+  {
+    "name": "create-defaults",
+    "kind": "timeline_create",
+    "file": "host-payloads/create-defaults.json",
+    "accepted": true,
+    "normalized": "host-payloads/create-defaults.normalized.json"
+  },
+  {
+    "name": "create-unknown",
+    "kind": "timeline_create",
+    "file": "host-payloads/create-unknown.json",
+    "accepted": false
+  },
+  {
+    "name": "create-missing-title",
+    "kind": "timeline_create",
+    "file": "host-payloads/create-missing-title.json",
+    "accepted": false
+  },
+  {
+    "name": "patch-missing",
+    "kind": "timeline_patch",
+    "file": "host-payloads/patch-missing.json",
+    "accepted": true,
+    "normalized": "host-payloads/patch-missing.normalized.json"
+  },
+  {
+    "name": "patch-null",
+    "kind": "timeline_patch",
+    "file": "host-payloads/patch-null.json",
+    "accepted": true,
+    "normalized": "host-payloads/patch-null.normalized.json"
+  },
+  {
+    "name": "patch-value",
+    "kind": "timeline_patch",
+    "file": "host-payloads/patch-value.json",
+    "accepted": true,
+    "normalized": "host-payloads/patch-value.normalized.json"
+  },
+  {
+    "name": "patch-invalid-type",
+    "kind": "timeline_patch",
+    "file": "host-payloads/patch-invalid-type.json",
+    "accepted": false
+  },
+  {
+    "name": "query-default",
+    "kind": "timeline_query",
+    "file": "host-payloads/query-default.json",
+    "accepted": true,
+    "normalized": "host-payloads/query-default.normalized.json"
+  },
+  {
+    "name": "query-valid",
+    "kind": "timeline_query",
+    "file": "host-payloads/query-valid.json",
+    "accepted": true,
+    "normalized": "host-payloads/query-valid.normalized.json"
+  },
+  {
+    "name": "query-negative",
+    "kind": "timeline_query",
+    "file": "host-payloads/query-negative.json",
+    "accepted": false
+  },
+  {
+    "name": "query-unknown",
+    "kind": "timeline_query",
+    "file": "host-payloads/query-unknown.json",
+    "accepted": false
+  },
+  {
+    "name": "storage-output",
+    "kind": "storage_entry",
+    "file": "host-payloads/storage-output.json",
+    "accepted": true,
+    "normalized": "host-payloads/storage-output.normalized.json"
+  },
+  {
+    "name": "storage-output-unknown",
+    "kind": "storage_entry",
+    "file": "host-payloads/storage-output-unknown.json",
+    "accepted": true,
+    "normalized": "host-payloads/storage-output-unknown.normalized.json"
+  },
+  {
+    "name": "storage-missing-key",
+    "kind": "storage_entry",
+    "file": "host-payloads/storage-missing-key.json",
+    "accepted": false
+  }
+]

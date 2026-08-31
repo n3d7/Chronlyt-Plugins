@@ -1,0 +1,123 @@
+{
+  "$defs": {
+    "PluginId": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 57,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "RegistryMetadataV1": {
+      "additionalProperties": false,
+      "properties": {
+        "generated_at": {
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "schema_version",
+        "generated_at"
+      ],
+      "type": "object",
+      "x-chronlyt-max-utf8-bytes": 4096
+    },
+    "RegistryReleaseV1": {
+      "additionalProperties": false,
+      "properties": {
+        "artifact_url": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "version",
+        "artifact_url"
+      ],
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "categories": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 16,
+      "type": "array"
+    },
+    "changelog": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 8000
+    },
+    "created_at": {
+      "type": "string"
+    },
+    "id": {
+      "$ref": "#/$defs/PluginId"
+    },
+    "license": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 80,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "publisher": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 120,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "release": {
+      "$ref": "#/$defs/RegistryReleaseV1"
+    },
+    "repository_url": {
+      "type": "string"
+    },
+    "schema_version": {
+      "const": 1,
+      "format": "uint16",
+      "maximum": 65535,
+      "minimum": 0,
+      "type": "integer"
+    },
+    "summary": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 300,
+      "x-chronlyt-min-utf8-bytes": 1
+    },
+    "tags": {
+      "items": {
+        "type": "string"
+      },
+      "maxItems": 32,
+      "type": "array"
+    },
+    "updated_at": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "schema_version",
+    "id",
+    "release",
+    "repository_url",
+    "summary",
+    "publisher",
+    "license",
+    "categories",
+    "tags",
+    "created_at",
+    "updated_at",
+    "changelog"
+  ],
+  "title": "RegistryRecordV1",
+  "type": "object",
+  "x-chronlyt-max-utf8-bytes": 65536,
+  "x-chronlyt-semantic-validation-required": true
+}

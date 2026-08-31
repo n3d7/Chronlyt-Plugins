@@ -1,0 +1,181 @@
+{
+  "$defs": {
+    "CreatePluginTimelineEntryInput": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_seconds": {
+          "format": "int64",
+          "maximum": 31536000,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "note": {
+          "default": "",
+          "maxLength": 4000,
+          "type": "string"
+        },
+        "occurred_at": {
+          "type": "string"
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-chronlyt-max-utf8-bytes": 200
+        },
+        "title": {
+          "type": "string",
+          "x-chronlyt-trimmed-max-codepoints": 200
+        }
+      },
+      "required": [
+        "title",
+        "occurred_at"
+      ],
+      "type": "object"
+    },
+    "PluginStorageEntry": {
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "value_json": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "key",
+        "value_json",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "TimelineEntry": {
+      "properties": {
+        "created_at": {
+          "type": "string"
+        },
+        "duration_seconds": {
+          "format": "int64",
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "id": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "occurred_at": {
+          "type": "string"
+        },
+        "source_namespace": {
+          "type": "string"
+        },
+        "source_ref": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "updated_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source_namespace",
+        "title",
+        "occurred_at",
+        "note",
+        "created_at",
+        "updated_at"
+      ],
+      "type": "object"
+    },
+    "TimelineListQuery": {
+      "additionalProperties": false,
+      "properties": {
+        "limit": {
+          "format": "uint",
+          "maximum": 100,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        }
+      },
+      "type": "object"
+    },
+    "UpdateTimelineEntryInput": {
+      "additionalProperties": false,
+      "properties": {
+        "duration_seconds": {
+          "default": null,
+          "format": "int64",
+          "maximum": 31536000,
+          "minimum": 1,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "note": {
+          "maxLength": 4000,
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "occurred_at": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "title": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "x-chronlyt-trimmed-max-codepoints": 200
+        }
+      },
+      "type": "object"
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "$ref": "#/$defs/PluginStorageEntry"
+    },
+    {
+      "$ref": "#/$defs/TimelineEntry"
+    },
+    {
+      "$ref": "#/$defs/CreatePluginTimelineEntryInput"
+    },
+    {
+      "$ref": "#/$defs/UpdateTimelineEntryInput"
+    },
+    {
+      "$ref": "#/$defs/TimelineListQuery"
+    }
+  ],
+  "description": "Select the named $defs type for the specific WIT operation. Input/output wire byte budgets and semantic Rust validation also apply.",
+  "title": "Chronlyt v1 guest JSON payloads",
+  "x-chronlyt-semantic-validation-required": true
+}

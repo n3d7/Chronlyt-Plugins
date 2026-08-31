@@ -1,0 +1,205 @@
+{
+  "$defs": {
+    "Capability": {
+      "enum": [
+        "storage.read",
+        "storage.write",
+        "timeline.read",
+        "timeline.write",
+        "notifications.show"
+      ],
+      "type": "string"
+    },
+    "CatalogArtifactV1": {
+      "additionalProperties": false,
+      "properties": {
+        "sha256": {
+          "type": "string"
+        },
+        "size": {
+          "format": "uint64",
+          "maximum": 16777216,
+          "minimum": 1,
+          "type": "integer"
+        },
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url",
+        "sha256",
+        "size"
+      ],
+      "type": "object"
+    },
+    "PluginCatalogEntryV1": {
+      "additionalProperties": false,
+      "properties": {
+        "api_version": {
+          "const": 1,
+          "format": "uint16",
+          "maximum": 65535,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "artifact": {
+          "$ref": "#/$defs/CatalogArtifactV1"
+        },
+        "author": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 120,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "categories": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 16,
+          "type": "array"
+        },
+        "changelog": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 8000
+        },
+        "chronlyt_compatibility": {
+          "type": "string"
+        },
+        "created_at": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 4000
+        },
+        "downloads": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "id": {
+          "$ref": "#/$defs/PluginId"
+        },
+        "license": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 80,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "name": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 80,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "official": {
+          "type": "boolean"
+        },
+        "permissions": {
+          "items": {
+            "$ref": "#/$defs/Capability"
+          },
+          "maxItems": 32,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "publisher": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 120,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "repository_url": {
+          "type": "string"
+        },
+        "stars": {
+          "format": "uint64",
+          "minimum": 0,
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "summary": {
+          "type": "string",
+          "x-chronlyt-max-utf8-bytes": 300,
+          "x-chronlyt-min-utf8-bytes": 1
+        },
+        "tags": {
+          "items": {
+            "type": "string"
+          },
+          "maxItems": 32,
+          "type": "array"
+        },
+        "updated_at": {
+          "type": "string"
+        },
+        "verified": {
+          "type": "boolean"
+        },
+        "version": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "summary",
+        "description",
+        "author",
+        "publisher",
+        "repository_url",
+        "license",
+        "categories",
+        "tags",
+        "created_at",
+        "updated_at",
+        "version",
+        "chronlyt_compatibility",
+        "api_version",
+        "artifact",
+        "permissions",
+        "changelog",
+        "verified",
+        "official"
+      ],
+      "type": "object"
+    },
+    "PluginId": {
+      "type": "string",
+      "x-chronlyt-max-utf8-bytes": 57,
+      "x-chronlyt-min-utf8-bytes": 1
+    }
+  },
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "generated_at": {
+      "type": "string"
+    },
+    "plugins": {
+      "items": {
+        "$ref": "#/$defs/PluginCatalogEntryV1"
+      },
+      "maxItems": 1000,
+      "type": "array"
+    },
+    "schema_version": {
+      "const": 1,
+      "format": "uint16",
+      "maximum": 65535,
+      "minimum": 0,
+      "type": "integer"
+    }
+  },
+  "required": [
+    "schema_version",
+    "generated_at",
+    "plugins"
+  ],
+  "title": "PluginCatalogV1",
+  "type": "object",
+  "x-chronlyt-max-utf8-bytes": 2097152,
+  "x-chronlyt-semantic-validation-required": true
+}

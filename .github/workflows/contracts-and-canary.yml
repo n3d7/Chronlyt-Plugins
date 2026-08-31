@@ -1,0 +1,36 @@
+name: Candidate contracts and canary
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  candidate-code:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          submodules: false
+          lfs: false
+          clean: false
+      - name: Check candidate code in isolation
+        shell: bash
+        env:
+          CARGO_HOME: ${{ runner.temp }}/candidate-cargo
+          CARGO_TARGET_DIR: ${{ runner.temp }}/candidate-target
+          RUSTUP_HOME: ${{ runner.temp }}/candidate-rustup
+        run: |
+          set -euo pipefail
+          rustup show active-toolchain
+          cargo fmt --all --check
+          cargo clippy --locked --workspace --all-targets -- -D warnings
+          cargo test --locked --workspace
+          cargo run --locked -p chronlyt-registry -- schemas --check
+          cargo check --locked -p chronlyt-plugin-contracts --no-default-features --target wasm32-unknown-unknown
