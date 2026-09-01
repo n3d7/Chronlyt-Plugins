@@ -8,7 +8,8 @@ until the trusted workflow/tooling and external review gates are ready.
    version is not the public compatibility contract.
 2. Build a compatible component and package it under the existing archive rules.
    No new SDK, general build/pack CLI, template or WASI adapter is implied here.
-   The foundation's minimal canary is a compatibility example, not an SDK.
+   The foundation's [minimal canary](../examples/minimal-page/README.md) is a
+   source-built compatibility example, not an SDK or submission template.
 3. Validate locally with the canonical contracts/pure package validator. Publish
    the `.chronlyt-plugin` as an immutable versioned GitHub release artifact only
    when you intentionally choose to publish it. This repository never executes

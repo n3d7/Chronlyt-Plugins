@@ -25,5 +25,5 @@ cargo run --locked -p chronlyt-registry -- schemas --check
 ```
 
 No SDK, general CLI, scaffolding or new capabilities are part of this milestone.
-The real minimal compatibility canary is Task 6; it must be built/tested before
-the complete foundation milestone is declared finished.
+The source-built [minimal compatibility canary](examples/minimal-page/README.md)
+is continuously checked as contract evidence; it is not a submission template.

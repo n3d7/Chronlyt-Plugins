@@ -34,3 +34,6 @@ jobs:
           cargo test --locked --workspace
           cargo run --locked -p chronlyt-registry -- schemas --check
           cargo check --locked -p chronlyt-plugin-contracts --no-default-features --target wasm32-unknown-unknown
+          cargo build --locked --release -p chronlyt-plugin-example-minimal --target wasm32-unknown-unknown
+          CHRONLYT_CANARY_CORE_WASM="$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/chronlyt_plugin_example_minimal.wasm" \
+            cargo test --locked -p chronlyt-plugin-validator --test canary_package -- --ignored

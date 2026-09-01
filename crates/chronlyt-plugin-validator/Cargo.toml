@@ -19,3 +19,4 @@ wit-parser.workspace = true
 [dev-dependencies]
 serde_json.workspace = true
 wat.workspace = true
+wit-component.workspace = true

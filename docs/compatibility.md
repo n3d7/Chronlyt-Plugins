@@ -53,10 +53,10 @@ authority. The interim host/public copies are an extraction checkpoint, not two
 independently maintained protocols. Adoption must replace matching private rules
 with these imports and remove its source-maintained WIT copy.
 
-Both public contracts and the future pure package validator will be consumed by
-the host at the same real full Git revision with Cargo.lock. Crates.io publication
-is deferred. There is no usable public revision containing these uncommitted
-changes yet; local path integration does not constitute a published adoption.
+Coordinated host adoption must consume both the public contracts and pure package
+validator at the same reviewed full Git revision with Cargo.lock. Crates.io
+publication remains deferred; a local path integration is not a published or
+reproducibly pinned adoption.
 
 ## Preserved behavior
 
@@ -87,6 +87,8 @@ transactional quotas, SQLite, package staging and network transport remain host
 responsibilities. Shared validation never makes downloaded data trusted: the host
 must validate it independently on every relevant runtime/install boundary.
 
-Schemas, package validation and the real compatibility canary arrive in the next
-foundation tasks. No SDK, general author CLI, dynamic UI code or new capabilities
-are provided here.
+The source-built [minimal compatibility canary](../examples/minimal-page/README.md)
+targets this WIT, becomes a real no-WASI Component, and passes the canonical
+component, package and declarative UI validators. It is compatibility evidence,
+not an SDK, template or published registry plugin. No general author CLI,
+dynamic UI code or new capabilities are provided here.

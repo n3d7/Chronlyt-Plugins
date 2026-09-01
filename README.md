@@ -14,12 +14,13 @@ Chronlyt reads the root catalog from:
 
 Local changes do not update that endpoint. They must first be reviewed and
 published to `main` by an authorized maintainer. Community submissions remain
-closed until validation tooling, CI and repository review gates are established.
+closed until the separate registry intake and review gates are established.
 
 Plugin authors keep source code in their own repositories and publish
 `.chronlyt-plugin` artifacts through their GitHub releases. This repository will
 hold registry metadata and the generated catalog, not community plugin source.
 
-The registry foundation is being implemented in stages. Public contracts,
-validation tooling and one compatibility example will follow; no SDK, general
-author CLI or plugin runtime is provided by this bootstrap.
+The foundation contains canonical public contracts, pure validation tooling and
+a source-built [minimal compatibility canary](examples/minimal-page/README.md).
+The canary proves the v1 build/package boundary; it is not an SDK, template,
+published registry plugin or plugin runtime.

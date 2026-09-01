@@ -217,9 +217,21 @@ fn candidate_code_runs_only_in_an_unprivileged_separate_workflow() {
     assert!(workflow["on"]["pull_request"].as_hash().is_some());
     assert!(workflow["on"]["pull_request_target"].is_badvalue());
     readonly(&workflow["permissions"], false);
+    assert_eq!(keys(&workflow["jobs"]), BTreeSet::from(["candidate-code"]));
     for (_, job) in workflow["jobs"].as_hash().unwrap() {
         readonly(&job["permissions"], false);
         assert_eq!(job["runs-on"].as_str(), Some("ubuntu-24.04"));
+    }
+    let steps = workflow["jobs"]["candidate-code"]["steps"]
+        .as_vec()
+        .unwrap();
+    let check = steps.last().unwrap()["run"].as_str().unwrap();
+    for expected in [
+        "cargo build --locked --release -p chronlyt-plugin-example-minimal --target wasm32-unknown-unknown",
+        "CHRONLYT_CANARY_CORE_WASM=\"$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/chronlyt_plugin_example_minimal.wasm\"",
+        "cargo test --locked -p chronlyt-plugin-validator --test canary_package -- --ignored",
+    ] {
+        assert!(check.contains(expected), "{expected}");
     }
     for forbidden in [
         "secrets.",
