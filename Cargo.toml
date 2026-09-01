@@ -1,5 +1,10 @@
 [workspace]
-members = ["crates/chronlyt-plugin-contracts", "crates/chronlyt-plugin-validator", "tools/chronlyt-registry"]
+members = [
+    "crates/chronlyt-plugin-contracts",
+    "crates/chronlyt-plugin-validator",
+    "examples/minimal-page",
+    "tools/chronlyt-registry",
+]
 resolver = "2"
 
 [workspace.package]
@@ -27,3 +32,5 @@ tempfile = "=3.27.0"
 base64 = "=0.22.1"
 schemars = { version = "=1.2.2", default-features = false, features = ["std", "derive"] }
 yaml-rust2 = { version = "=0.12.0", default-features = false }
+wit-bindgen = { version = "=0.61.1", default-features = false, features = ["macros", "realloc"] }
+wit-component = { version = "=0.258.0", default-features = false }

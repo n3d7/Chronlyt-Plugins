@@ -1,0 +1,19 @@
+[package]
+name = "chronlyt-plugin-example-minimal"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish = false
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+chronlyt-plugin-contracts = { path = "../../crates/chronlyt-plugin-contracts" }
+serde_json.workspace = true
+wit-bindgen.workspace = true
+
+[build-dependencies]
+chronlyt-plugin-contracts = { path = "../../crates/chronlyt-plugin-contracts" }

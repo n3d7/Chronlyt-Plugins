@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "root": {
+    "kind": "page",
+    "title": "Compatibility canary",
+    "children": [
+      {
+        "kind": "text",
+        "text": "ready",
+        "tone": null
+      },
+      {
+        "kind": "button",
+        "label": "Ping",
+        "action_id": "ping",
+        "variant": null,
+        "disabled": false
+      }
+    ]
+  }
+}

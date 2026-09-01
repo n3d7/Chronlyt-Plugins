@@ -207,3 +207,29 @@ loosening checks. Its optional shellcheck/pyflakes checks were not run (tools
 absent). No live Actions run or repository enforcement was validated: read-only
 GitHub metadata shows main is still initial revision 6d59f523dd0885862f31fd414f92ed2fad987e79,
 unprotected, with no required status checks. Intake remains closed.
+
+## Task 6 canary build dependencies (2026-09-01)
+
+Decision: ACCEPT WITH CHECKS for the source-built compatibility canary only.
+`wit-bindgen` 0.61.1 generates guest bindings from the canonical public WIT;
+default features are disabled and only `macros` plus the guest's own
+`cabi_realloc` support are enabled. Async, std, bitflags and macro-string are not
+enabled. `wit-component` 0.258.0 is a validator dev-dependency used only to wrap
+the checked source-built core module as a Component; its optional WAT features
+and every WASI adapter remain disabled. Both are pinned exactly and locked.
+
+The new Bytecode Alliance packages (`wit-bindgen`, its core/Rust/macro crates,
+`wit-component`, `wit-parser` and `wasm-metadata`) use Apache-2.0 with LLVM
+exception, Apache-2.0 or MIT alternatives. Their small supporting additions are
+`heck` and `prettyplease`, both MIT OR Apache-2.0. Proc macros and build scripts
+generate Rust/component metadata from the repository-owned WIT; they do not
+download tools, execute guest code or add application filesystem/network APIs.
+
+The final lock/metadata closure contains 194 packages. Focused feature-tree
+inspection found no Wasmtime, WASI/wasip, capability filesystem, ambient runtime
+or new network dependency in the canary/componentization path. The emitted outer
+Component imports are checked structurally and permit only the versioned Chronlyt
+host interface; this no-host-call canary currently needs no ambient interface.
+`cargo audit --file Cargo.lock` passed against 1,235 loaded RustSec advisories.
+The source build, componentization and canonical package/component/UI validation
+also passed; these remain CI requirements rather than trust granted to plugins.
