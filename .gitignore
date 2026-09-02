@@ -27,3 +27,12 @@ Desktop.ini
 
 # Keep Cargo.lock, catalogs, generated contracts, WIT and all fixtures visible.
 # Do not ignore *.wasm or *.chronlyt-plugin globally: they can be test fixtures.
+
+.env
+.env.*
+!.env.example
+
+*.pem
+*.key
+*.p12
+*.pfx
